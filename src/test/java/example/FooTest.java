@@ -33,25 +33,6 @@ public class FooTest {
    @Autowired
    private FooRepository fooRepository;
 
-   @Autowired
-   private BarRepository barRepository;
-
-   private Foo foo;
-
-   private Bar bar;
-
-   @Before
-   public void startup() {
-      Foo foo = new Foo();
-      foo.setTenantId( "test" );
-
-      Bar bar = new Bar();
-      bar.setName( "Like Foo" );
-
-      this.bar = barRepository.saveAndFlush( bar );
-      foo.setBars( Set.of( bar ) );
-      this.foo = fooRepository.saveAndFlush( foo );
-   }
 
    @Test
    @Transactional
@@ -60,7 +41,7 @@ public class FooTest {
       session.enableFilter( "tenantFilter" )
              .setParameter( "tenantId",
                    "test" ).validate();
-      final Optional<Foo> foo1 = fooRepository.findById( foo.getId() );
+      final Optional<Foo> foo1 = fooRepository.findById( 1);
       assertThat(foo1).isPresent();
       foo1.get().getBars().forEach( System.out::println );
    }
