@@ -14,26 +14,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class Application implements CommandLineRunner {
+public class Application {
 
-   @Autowired
-   private FooRepository fooRepository;
 
-   @Autowired
-   private BarRepository barRepository;
 
    public static void main( String[] args ) {
       SpringApplication.run( Application.class, args );
    }
 
-   @Override
-   public void run( String... args ) throws Exception {
-      Foo foo = new Foo();
-      foo.setTenantId( "test" );
 
-      Bar bar = new Bar();
-      bar.setName( "Like Foo" );
-      foo.setBars( Set.of( bar ) );
-      fooRepository.saveAndFlush( foo );
-   }
 }

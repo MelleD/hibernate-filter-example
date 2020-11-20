@@ -33,6 +33,21 @@ public class FooTest {
    @Autowired
    private FooRepository fooRepository;
 
+   @Autowired
+   private BarRepository barRepository;
+
+   @Before
+   public void before() {
+      Foo foo = new Foo();
+      foo.setTenantId( "test" );
+
+      Bar bar = new Bar();
+      bar.setName( "Like Foo" );
+      foo.setBars( Set.of( bar ) );
+      fooRepository.saveAndFlush( foo );
+      entityManager.detach( foo );
+   }
+
 
    @Test
    @Transactional
